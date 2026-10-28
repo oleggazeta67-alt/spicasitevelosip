@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Спица — веломастерская</title>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@500;800&family=PT+Serif:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#e4e9eb;--surface:#f4f6f6;--ink:#10303a;--muted:#4d6670;--line:#b7c4c9;--yellow:#f2c318;--on-yellow:#10303a;--red:#c2402a;--hero:#10303a;--hero-ink:#e4e9eb;
+color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1b20;--surface:#16272e;--ink:#e4e9eb;--muted:#9bb0b8;--line:#2c434c;--hero:#07110f;--hero-ink:#e4e9eb;--red:#ec6a52;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0e1b20;--surface:#16272e;--ink:#e4e9eb;--muted:#9bb0b8;--line:#2c434c;--hero:#07110f;--hero-ink:#e4e9eb;--red:#ec6a52;color-scheme:dark}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 "PT Serif",Georgia,serif}
+h1,h2,h3,.sans,button,input,select,label,nav{font-family:Rubik,"Segoe UI",Arial,sans-serif}
+h1,h2,h3{line-height:1.05;margin:0}
+a{color:inherit}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+#promo{background:var(--yellow);color:var(--on-yellow);font:500 15px/1.4 Rubik,sans-serif;padding:9px 44px 9px 20px;position:relative;text-align:center}
+#promo b{font-weight:800}
+#promo button{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:0;font-size:22px;cursor:pointer;color:inherit;padding:4px 8px}
+header{position:sticky;top:0;z-index:10;background:var(--bg);border-bottom:2px solid var(--ink)}
+header .wrap{display:flex;align-items:center;gap:18px;height:56px}
+.logo{font:800 24px Rubik,sans-serif;text-decoration:none;margin-right:auto}
+nav{display:flex;gap:18px;font-weight:500;font-size:15px}
+nav a{text-decoration:none}nav a:hover{text-decoration:underline;text-decoration-color:var(--yellow);text-decoration-thickness:3px}
+#theme{border:2px solid var(--ink);background:none;color:var(--ink);border-radius:50%;width:34px;height:34px;cursor:pointer;font-size:16px}
+@media(max-width:720px){nav{display:none}}
+.hero{background:var(--hero);color:var(--hero-ink);overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;align-items:center;gap:10px;padding-top:56px;padding-bottom:56px}
+.hero h1{font-size:clamp(40px,7vw,84px);font-weight:800;letter-spacing:-.02em}
+.hero p{max-width:30em;color:#c5d2d6;margin:20px 0 28px}
+.btn{display:inline-block;background:var(--yellow);color:var(--on-yellow);border:0;border-radius:4px 14px 4px 14px;padding:13px 24px;font:800 16px Rubik,sans-serif;cursor:pointer;text-decoration:none}
+.btn:hover{filter:brightness(1.08)}.btn:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible,button:focus-visible{outline:3px solid var(--red);outline-offset:2px}
+.btn.ghost{background:none;color:inherit;border:2px solid currentColor;margin-left:10px}
+#wheel{width:100%;max-width:420px;justify-self:center;will-change:transform}
+@media(max-width:720px){.hero .wrap{grid-template-columns:1fr}#wheel{max-width:240px}}
+section{padding:68px 0 10px}
+section h2{font-size:clamp(30px,4.5vw,46px);font-weight:800;margin-bottom:8px}
+.lead{color:var(--muted);max-width:36em;margin:0 0 30px}
+.two{display:grid;grid-template-columns:1.25fr 1fr;gap:28px;align-items:start}
+@media(max-width:820px){.two{grid-template-columns:1fr}}
+.sheet{background:var(--surface);border:2px solid var(--ink);padding:22px}
+.svc{display:flex;gap:12px;align-items:center;padding:11px 0;border-bottom:1px dashed var(--line);cursor:pointer}
+.svc:last-of-type{border-bottom:0}
+.svc input{width:20px;height:20px;accent-color:var(--ink)}
+.svc span{flex:1}.svc small{display:block;color:var(--muted);font-size:14px;line-height:1.3}
+.svc em{font:500 16px Rubik,sans-serif;font-style:normal;white-space:nowrap}
+.total{background:var(--ink);color:var(--bg);padding:22px;position:sticky;top:76px}
+.total h3{font-size:20px;margin-bottom:12px}
+.total .sum{font:800 44px Rubik,sans-serif;margin:6px 0}
+.total .old{text-decoration:line-through;opacity:.6;font:500 16px Rubik}
+.total input{width:100%;padding:10px;border:2px solid var(--bg);background:transparent;color:inherit;font-size:16px;border-radius:0;margin:8px 0}
+.msg{min-height:1.5em;font-size:15px}
+.ok{color:var(--yellow)}.bad{color:#ff9a86}
+label{display:block;font-weight:500;font-size:15px;margin:12px 0 4px}
+.sheet input,.sheet select{width:100%;padding:10px;font-size:16px;border:2px solid var(--ink);background:var(--bg);color:var(--ink);border-radius:0}
+.result{margin-top:16px;padding:14px;border-left:8px solid var(--yellow);background:var(--bg)}
+.result b{font:800 30px Rubik,sans-serif;display:block}
+.bar{display:flex;flex-wrap:wrap;gap:14px;align-items:end;margin-bottom:22px}
+.bar div{flex:1;min-width:150px}.bar label{margin-top:0}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(235px,1fr));gap:20px}
+.bike{background:var(--surface);border:2px solid var(--ink);display:flex;flex-direction:column}
+.bike svg{width:100%;height:120px;background:var(--bg);border-bottom:2px solid var(--ink)}
+.bike div{padding:14px 16px 16px;display:flex;flex-direction:column;gap:6px;flex:1}
+.bike h3{font-size:19px}.bike p{margin:0;font-size:15px;color:var(--muted);line-height:1.45;flex:1}
+.bike .pr{font:800 22px Rubik,sans-serif}
+.bike button{align-self:flex-start}
+.tag{font:500 13px Rubik,sans-serif;background:var(--ink);color:var(--bg);padding:1px 8px;align-self:flex-start}
+.empty{grid-column:1/-1;padding:30px;border:2px dashed var(--line);text-align:center;color:var(--muted)}
+details{border-bottom:2px solid var(--ink);padding:14px 0}
+summary{font:500 18px Rubik,sans-serif;cursor:pointer}
+details p{margin:10px 0 0;max-width:42em;color:var(--muted)}
+.confirm{border:2px solid var(--ink);background:var(--yellow);color:var(--on-yellow);padding:16px;margin-top:16px;display:none}
+.confirm.show{display:block;animation:pop .35s ease-out}
+@keyframes pop{from{transform:scale(.96);opacity:0}}
+footer{margin-top:80px;background:var(--hero);color:var(--hero-ink);padding:40px 0}
+footer .wrap{display:flex;flex-wrap:wrap;gap:30px;justify-content:space-between}
+footer p{margin:4px 0;color:#c5d2d6}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.confirm.show{animation:none}}
+</style>
+</head>
+<body>
+<div id="promo"><span>Осенняя акция до 30 ноября: введите промокод <b>ЦЕПЬ15</b> в калькуляторе и получите скидку 15% на обслуживание.</span><button aria-label="Закрыть баннер" onclick="this.parentNode.remove()">×</button></div>
+<header><div class="wrap">
+<a class="logo" href="#top">Спица</a>
+<nav><a href="#uslugi">Услуги</a><a href="#razmer">Размер рамы</a><a href="#bu">Б/у велосипеды</a><a href="#zapis">Запись</a><a href="#faq">Вопросы</a></nav>
+<button id="theme" aria-label="Сменить тему">◐</button>
+</div></header>
+
+<div class="hero" id="top"><div class="wrap">
+<div>
+<h1>Чиним велосипеды, пока вы катаетесь</h1>
+<p>Небольшая мастерская на три подъёмника. Берёмся за всё, от прокола до перебора втулки. Называем цену до начала работы и не трогаем то, о чём вы не просили.</p>
+<a class="btn" href="#zapis">Записаться</a><a class="btn ghost" href="#uslugi">Прикинуть цену</a>
+</div>
+<svg id="wheel" viewBox="0 0 200 200" aria-hidden="true"><g fill="none" stroke="#e4e9eb" stroke-linecap="round" id="spokes"></g><circle cx="100" cy="100" r="92" fill="none" stroke="#f2c318" stroke-width="7"/><circle cx="100" cy="100" r="85" fill="none" stroke="#e4e9eb" stroke-width="1.5" opacity=".5"/><circle cx="100" cy="100" r="10" fill="#f2c318"/><circle cx="100" cy="100" r="4" fill="#10303a"/></svg>
+</div></div>
+
+<main class="wrap">
+<section id="uslugi">
+<h2>Что делаем и сколько это стоит</h2>
+<p class="lead">Отметьте нужное, и справа появится итог. Точную сумму назовём после диагностики, но разброс обычно небольшой.</p>
+<div class="two">
+<div class="sheet" id="svcs"></div>
+<div class="total">
+<h3>Ваш заказ</h3>
+<div id="cnt" class="msg">Пока ничего не выбрано</div>
+<div class="old" id="old"></div>
+<div class="sum" id="sum">0 ₽</div>
+<label for="code">Промокод</label>
+<input id="code" placeholder="Введите промокод" autocomplete="off">
+<div class="msg" id="codeMsg"></div>
+</div>
+</div>
+</section>
+
+<section id="razmer">
+<h2>Подберите размер рамы</h2>
+<p class="lead">Неподходящая рама это больная спина и колени. Введите рост, и мы подскажем, на что смотреть в магазине.</p>
+<div class="two">
+<div class="sheet">
+<label for="type">Тип велосипеда</label>
+<select id="type"><option value="city">Городской</option><option value="mtb">Горный</option><option value="road">Шоссейный</option></select>
+<label for="h">Ваш рост, см</label>
+<input id="h" type="number" min="140" max="210" value="175">
+<label for="inseam">Длина внутренней стороны ноги, см (если знаете)</label>
+<input id="inseam" type="number" min="60" max="110" placeholder="Необязательно">
+<div class="result" id="fit"></div>
+</div>
+<p class="lead">Если вы между двумя размерами, берите меньший для езды по городу и большего для длинных дистанций. Седло и вынос всё равно регулируются, а вот слишком длинную раму уже не исправить.</p>
+</div>
+</section>
+
+<section id="bu">
+<h2>Велосипеды после наших рук</h2>
+<p class="lead">Выкупаем, перебираем до последнего подшипника и продаём с гарантией на три месяца.</p>
+<div class="bar">
+<div><label for="ft">Тип</label><select id="ft"><option value="all">Любой</option><option>Городской</option><option>Горный</option><option>Шоссейный</option></select></div>
+<div><label for="fp">Цена до: <span id="fpv"></span></label><input id="fp" type="range" min="10000" max="60000" step="1000" value="60000" style="padding:0"></div>
+<div><label for="fs">Сортировка</label><select id="fs"><option value="a">Сначала дешёвые</option><option value="d">Сначала дорогие</option><option value="y">Сначала новые</option></select></div>
+</div>
+<div class="grid" id="grid"></div>
+</section>
+
+<section id="zapis">
+<h2>Запись в мастерскую</h2>
+<p class="lead">Выберите день, и мы подтвердим время по телефону в течение часа. По воскресеньям не работаем.</p>
+<div class="two">
+<form class="sheet" id="form" novalidate>
+<label for="nm">Имя</label><input id="nm" autocomplete="name">
+<label for="ph">Телефон</label><input id="ph" type="tel" placeholder="+7 900 000 00 00" autocomplete="tel">
+<label for="sv">Что нужно</label>
+<select id="sv"></select>
+<label for="dt">Дата визита</label><input id="dt" type="date">
+<div class="msg bad" id="err" role="alert"></div>
+<button class="btn" type="submit" style="margin-top:8px">Отправить заявку</button>
+<div class="confirm" id="done" tabindex="-1"></div>
+</form>
+<div>
+<h3 style="font-size:22px;margin-bottom:10px">Как проходит приём</h3>
+<p class="lead" style="margin-bottom:12px">Вы приезжаете, мастер осматривает велосипед при вас и называет цену. Если сумма не устроила, забираете велосипед обратно, диагностика бесплатна.</p>
+<p class="lead">Готовый велосипед ждёт вас три дня, дальше хранение 100 ₽ в сутки.</p>
+</div>
+</div>
+</section>
+
+<section id="faq">
+<h2>Что спрашивают чаще всего</h2>
+<div style="margin-top:20px">
+<details><summary>Сколько ждать ремонт?</summary><p>Прокол, регулировку тормозов и переключателей делаем в день обращения. Полное обслуживание занимает два-три дня, потому что часть деталей приходится отмачивать.</p></details>
+<details><summary>Вы работаете с электровелосипедами?</summary><p>Механическую часть обслуживаем без вопросов. Батареи и контроллеры не вскрываем, для этого есть сертифицированные сервисы, и мы подскажем, куда обратиться.</p></details>
+<details><summary>Можно привезти свои запчасти?</summary><p>Конечно. Работа в этом случае стоит так же, но гарантию даём только на неё, а не на деталь.</p></details>
+<details><summary>Какая гарантия на ремонт?</summary><p>Тридцать дней на выполненные работы. Если что-то разболталось, возвращайтесь, подтянем бесплатно.</p></details>
+</div>
+</section>
+</main>
+
+<footer><div class="wrap">
+<div><div class="logo" style="margin:0 0 8px">Спица</div><p>Веломастерская на три подъёмника</p></div>
+<div><p>Пн–Сб, 10:00–20:00</p><p>Воскресенье выходной</p></div>
+<div><p>ул. Заводская, 14, подвал, вход со двора</p><p>+7 900 000 00 00</p></div>
+</div></footer>
+
+<script>
+const $=id=>document.getElementById(id);
+const fmt=n=>n.toLocaleString("ru-RU")+" ₽";
+// колесо
+const sp=$("spokes");let h="";
+for(let i=0;i<36;i++){const a=i*10*Math.PI/180,x=100+Math.cos(a)*88,y=100+Math.sin(a)*88,cr=i%2?8:-8;
+const ox=100+Math.cos(a+cr*Math.PI/180/4)*10,oy=100+Math.sin(a+cr*Math.PI/180/4)*10;
+h+=`<line x1="${ox.toFixed(1)}" y1="${oy.toFixed(1)}" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}" stroke-width="${i%2?.8:1.2}"/>`}
+sp.innerHTML=h;
+addEventListener("scroll",()=>{$("wheel").style.transform="rotate("+(scrollY*.35)+"deg)"},{passive:true});
+// тема
+$("theme").onclick=()=>{const d=document.documentElement;const dark=d.dataset.theme?d.dataset.theme==="dark":matchMedia("(prefers-color-scheme:dark)").matches;d.dataset.theme=dark?"light":"dark"};
+// услуги
+const S=[["Замена камеры или прокол","Снимем колесо, найдём причину прокола",450],["Регулировка тормозов","Обе оси, подтяжка или замена колодок",600],["Настройка переключателей","Передний и задний, включая тросики",700],["Замена цепи","Цепь ваша или наша, на выбор",550],["Развал-схождение колеса","Выправим восьмёрку и натянем спицы",900],["Чистка и смазка трансмиссии","Кассета, система, цепь, переключатели",1200],["Обслуживание втулок и каретки","Разбор, промывка, новая смазка",1800],["Полное ТО","Всё из списка выше и осмотр рамы",3900]];
+const sel=new Set();let promo=false;
+$("svcs").innerHTML=S.map((s,i)=>`<label class="svc"><input type="checkbox" data-i="${i}"><span>${s[0]}<small>${s[1]}</small></span><em>${fmt(s[2])}</em></label>`).join("");
+$("sv").innerHTML='<option value="">Выберите услугу</option>'+S.map(s=>`<option>${s[0]}</option>`).join("")+"<option>Не знаю, нужна диагностика</option>";
+function calc(){let t=0;sel.forEach(i=>t+=S[i][2]);
+if(sel.has(7)){t=S[7][2];[...sel].filter(i=>i!==7);}
+const n=sel.size;$("cnt").textContent=n?"Выбрано работ: "+n:"Пока ничего не выбрано";
+if(promo&&t){$("old").textContent=fmt(t);$("sum").textContent=fmt(Math.round(t*.85))}else{$("old").textContent="";$("sum").textContent=fmt(t)}}
+$("svcs").addEventListener("change",e=>{const i=+e.target.dataset.i;e.target.checked?sel.add(i):sel.delete(i);calc()});
+$("code").addEventListener("input",e=>{const v=e.target.value.trim().toUpperCase();const m=$("codeMsg");
+if(!v){promo=false;m.textContent="";m.className="msg"}else if(v==="ЦЕПЬ15"){promo=true;m.textContent="Скидка 15% применена";m.className="msg ok"}else{promo=false;m.textContent="Такого промокода нет, проверьте раскладку";m.className="msg bad"}calc()});
+// размер рамы
+function fit(){const t=$("type").value,H=+$("h").value,I=+$("inseam").value;const out=$("fit");
+if(!H||H<140||H>210){out.innerHTML="Введите рост от 140 до 210 см";return}
+const inseam=(I>=60&&I<=110)?I:H*.45;let inch,cm;
+if(t==="road"){cm=inseam*.67;inch=cm/2.54}else if(t==="mtb"){inch=inseam*.226;cm=inch*2.54}else{inch=H*.1;cm=inch*2.54}
+const L=inch<15?"XS":inch<17?"S":inch<19?"M":inch<21?"L":"XL";
+out.innerHTML=`Ваш размер: <b>${L}</b>Рама около ${Math.round(cm)} см (${inch.toFixed(1)} дюйма). ${I>=60&&I<=110?"Расчёт по длине ноги.":"Расчёт по росту, с длиной ноги будет точнее."}`}
+["type","h","inseam"].forEach(i=>$(i).addEventListener("input",fit));fit();
+// каталог
+const B=[["Stels Navigator 700","Городской",14500,2019,"M","Рама из стали, новые покрышки, втулки перебраны.",1],["Merida Matts 6.20","Горный",27000,2018,"L","Вилка с блокировкой, гидравлика, 21 скорость.",2],["Cube Attention","Горный",38900,2021,"M","Шимано Дор, гидравлика, лёгкая алюминиевая рама.",2],["Format 5212","Горный",19800,2017,"S","Для подростков и невысоких, недавно менялась цепь.",2],["Peugeot Vintage","Шоссейный",21000,1989,"L","Стальная классика, ретроманетки, новая оплётка руля.",3],["Giant Defy 3","Шоссейный",52000,2020,"M","Карбоновая вилка, Тиагра, ровная и живая на ходу.",3],["Десна 2200","Городской",11900,2016,"M","Складная рама, багажник и крылья в комплекте.",1],["Trek FX 2","Городской",31500,2022,"L","Лёгкий гибрид, дисковые тормоза, ездил два сезона.",1]];
+function art(k){const c=["#10303a","#c2402a","#f2c318"][k-1];return`<svg viewBox="0 0 200 120" aria-hidden="true"><g fill="none" stroke="${c}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><circle cx="45" cy="78" r="26"/><circle cx="155" cy="78" r="26"/><path d="M45 78 80 78 105 44 140 44 155 78M80 78 68 44 105 44M68 44 62 38 76 38M140 44 136 32 148 32"/></g></svg>`}
+function draw(){const t=$("ft").value,p=+$("fp").value,s=$("fs").value;$("fpv").textContent=fmt(p);
+let L=B.filter(b=>(t==="all"||b[1]===t)&&b[2]<=p);
+L.sort((a,b)=>s==="a"?a[2]-b[2]:s==="d"?b[2]-a[2]:b[3]-a[3]);
+$("grid").innerHTML=L.length?L.map(b=>`<div class="bike">${art(b[6])}<div><span class="tag">${b[1]}, рама ${b[4]}</span><h3>${b[0]}</h3><p>${b[5]} ${b[3]} год.</p><span class="pr">${fmt(b[2])}</span><button class="btn" data-n="${b[0]}">Хочу посмотреть</button></div></div>`).join(""):'<div class="empty">Под такие условия ничего нет. Поднимите цену или выберите другой тип.</div>'}
+["ft","fp","fs"].forEach(i=>$(i).addEventListener("input",draw));draw();
+$("grid").addEventListener("click",e=>{const n=e.target.dataset.n;if(!n)return;$("sv").value="Не знаю, нужна диагностика";$("zapis").scrollIntoView();$("nm").focus({preventScroll:true});$("err").textContent="";$("err").className="msg ok";$("err").textContent="Пишем заявку на просмотр: "+n+". Укажите имя, телефон и день."});
+// запись
+const d=new Date();d.setMinutes(d.getMinutes()-d.getTimezoneOffset());$("dt").min=d.toISOString().slice(0,10);
+$("form").addEventListener("submit",e=>{e.preventDefault();const err=$("err");err.className="msg bad";
+const nm=$("nm").value.trim(),ph=$("ph").value.replace(/\D/g,""),dt=$("dt").value,sv=$("sv").value;
+if(nm.length<2){err.textContent="Напишите имя, чтобы мастер знал, как к вам обращаться";return}
+if(ph.length<10||ph.length>12){err.textContent="В телефоне должно быть от 10 до 12 цифр";return}
+if(!sv){err.textContent="Выберите услугу или пункт про диагностику";return}
+if(!dt||dt<$("dt").min){err.textContent="Выберите дату, не раньше сегодняшней";return}
+if(new Date(dt+"T12:00").getDay()===0){err.textContent="По воскресеньям мы не работаем, выберите другой день";return}
+err.textContent="";const f=new Date(dt+"T12:00").toLocaleDateString("ru-RU",{day:"numeric",month:"long",weekday:"long"});
+const c=$("done");c.innerHTML=`<b>${nm.replace(/[<>&]/g,"")}, заявка принята.</b><br>${sv}, ${f}. Позвоним в течение часа и уточним время.`;c.classList.remove("show");void c.offsetWidth;c.classList.add("show");c.focus();$("form").reset()});
+</script>
+</body>
+</html>
